@@ -1,0 +1,6 @@
+@NexusLite.Api_HostAddress = http://localhost:5298
+
+GET {{NexusLite.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
