@@ -1,0 +1,158 @@
+/* 1. O Import da fonte deve ser a LINHA 1 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box; /* Garante que a borda não aumente o tamanho dos elementos */
+  margin: 0;
+  padding: 0;
+}
+
+:host {
+  --bg-deep: #0a0a0f;
+  --bg-card: #111118;
+  --purple: #4B0082;
+  --gold: #D4AF37;
+  --gold-dim: rgba(212, 175, 0.15);
+  --text: #e8e6f0;
+  --radius: 12px;
+  display: block;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── LAYOUT BASE (MOBILE) ── */
+.dashboard {
+  display: flex;
+  flex-direction: column; /* No celular, sidebar fica em cima ou escondida */
+  height: 100vh;
+}
+
+/* Sidebar no Mobile: vira uma barra superior ou escondida */
+.sidebar {
+  width: 100%;
+  background: var(--bg-card);
+  border-bottom: 2px solid var(--gold);
+  display: none; /* Escondida por padrão no mobile para dar espaço */
+}
+
+/* Quando a sidebar estiver ativa ou em telas maiores */
+@media (min-width: 1024px) {
+  .dashboard {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    display: flex;
+    width: 260px;
+    height: 100vh;
+    border-bottom: none;
+    border-right: 2px solid var(--gold);
+    flex-direction: column;
+  }
+
+  .sidebar-collapsed {
+    width: 80px;
+  }
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* ── CARDS COM BORDA CORRIGIDA ── */
+.form-card, .table-card {
+  background: var(--bg-card);
+  border: 2px solid var(--gold) !important; /* Moldura Dourada */
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  overflow: hidden; /* CORREÇÃO: Impede que o conteúdo interno "fuja" da borda */
+  box-shadow: 0 0 15px var(--gold-dim);
+  box-sizing: border-box;
+}
+
+/* ── FORMULÁRIO RESPONSIVO ── */
+.form-row {
+  display: flex;
+  flex-direction: column; /* Stack vertical no mobile */
+  gap: 15px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .form-row {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.form-group {
+  flex: 1;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  background: #000;
+  border: 1px solid #2a2a38;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  outline: none;
+}
+
+  .form-input:focus {
+    border-color: var(--gold);
+  }
+
+/* ── TABELA RESPONSIVA ── */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Permite scroll lateral se a tabela for grande */
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+
+.table {
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Garante que a tabela não "esmague" no celular */
+}
+
+  .table th {
+    background: #1a1a24;
+    color: var(--gold);
+    text-align: left;
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .table td {
+    padding: 12px;
+    border-bottom: 1px solid #1e1e2a;
+  }
+
+/* ── BOTÕES ── */
+.btn-primary, .btn-save {
+  background: var(--gold);
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%; /* Botão largo no mobile */
+}
+
+@media (min-width: 768px) {
+  .btn-primary, .btn-save {
+    width: auto;
+  }
+}

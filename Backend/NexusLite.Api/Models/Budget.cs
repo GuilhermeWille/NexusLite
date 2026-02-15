@@ -1,6 +1,7 @@
 namespace NexusLite.Api.Models
 {
-    public class Budget
+    
+    public class Budget : IEntity
     {
         public int Id { get; set; }
         public int ClientId { get; set; }

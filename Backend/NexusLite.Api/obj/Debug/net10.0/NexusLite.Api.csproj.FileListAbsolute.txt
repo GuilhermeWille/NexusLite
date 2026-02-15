@@ -6,6 +6,7 @@ C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\Nexu
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\obj\Debug\net10.0\NexusLite.Api.csproj.CoreCompileInputs.cache
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\obj\Debug\net10.0\NexusLite.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\obj\Debug\net10.0\NexusLite.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\obj\Debug\net10.0\NexusLite.Api.sourcelink.json
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\bin\Debug\net10.0\appsettings.json
 C:\Users\guilh\Documents\Programação\FullStack_Projetos\NexusLite\Backend\NexusLite.Api\bin\Debug\net10.0\NexusLite.Api.staticwebassets.endpoints.json

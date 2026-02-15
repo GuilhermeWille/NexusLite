@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NexusLite.Api.Models
 {
-	public class Finance
-	{
+	public class Finance : IEntity
+    {
 		public int Id { get; set; }
+		public string Description { get; set; } = string.Empty;
 		public DateTime Date { get; set; } = DateTime.Now;
-		public decimal Income { get; set; }
-		public decimal Spent { get; set; }
+		public decimal Value { get; set; }
+		public bool IsIncome { get; set; }
+
 	}
 }

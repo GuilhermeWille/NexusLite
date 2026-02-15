@@ -1,0 +1,102 @@
+<div class="dashboard">
+  <aside class="sidebar" [class.sidebar-collapsed]="sidebarCollapsed">
+    <div class="sidebar-logo">
+      <div class="logo-icon">N</div>
+      <div class="logo-text" *ngIf="!sidebarCollapsed">
+        <h1>NexusLite</h1>
+        <span>Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-label" *ngIf="!sidebarCollapsed">Menu</span>
+      <button *ngFor="let nav of navItems"
+              (click)="activeSection = nav.key"
+              class="nav-btn"
+              [class.nav-btn-active]="activeSection === nav.key"
+              [class.nav-btn-collapsed]="sidebarCollapsed">
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path [attr.d]="nav.icon" />
+        </svg>
+        <span *ngIf="!sidebarCollapsed">{{ nav.label }}</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="sidebarCollapsed = !sidebarCollapsed" class="collapse-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path *ngIf="sidebarCollapsed" d="m9 18 6-6-6-6" />
+          <path *ngIf="!sidebarCollapsed" d="m15 18-6-6 6-6" />
+        </svg>
+        <span *ngIf="!sidebarCollapsed">Recolher</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h2>{{ titles[activeSection] }}</h2>
+        <p>Gerenciamento de {{ titles[activeSection] }} no SQLite</p>
+      </div>
+      <button (click)="newRecord()" class="btn-primary">
+        Novo Registro
+      </button>
+    </header>
+
+    <div class="body">
+      <div class="form-card" *ngIf="formVisible">
+        <div class="form-header">
+          <div class="form-accent"></div>
+          <h3>{{ selectedItem.id !== 0 ? 'Editar Registro' : 'Novo Registro' }}</h3>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text"
+                   [(ngModel)]="selectedItem.name"
+                   placeholder="Digite o nome..."
+                   class="form-input" />
+          </div>
+          <div class="form-actions">
+            <button (click)="save(); formVisible = false" class="btn-save">Salvar</button>
+            <button (click)="formVisible = false" class="btn-cancel">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-accent"></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th class="th-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items; let i = index" [class.row-alt]="i % 2 !== 0">
+                <td class="cell-id">{{ pid(item.id) }}</td>
+                <td class="cell-name">{{ item.name }}</td>
+                <td class="cell-actions">
+                  <div class="action-group">
+                    <button (click)="editItem(item); formVisible = true" class="btn-action btn-edit">Editar</button>
+                    <button (click)="delete(item.id)" class="btn-action btn-delete">Excluir</button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="items.length === 0" class="empty-row">
+                <td colspan="3">Nenhum registro encontrado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span class="footer-count"><strong>{{ items.length }}</strong> registros listados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
