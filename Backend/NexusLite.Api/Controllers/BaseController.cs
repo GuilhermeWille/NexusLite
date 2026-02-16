@@ -44,6 +44,7 @@ public class BaseController<T> : ControllerBase where T : class, IEntity
 
 		try
 		{
+			_context.Set<T>().Update(entity);
 			await _context.SaveChangesAsync();
 		}
 		catch (DbUpdateConcurrencyException)

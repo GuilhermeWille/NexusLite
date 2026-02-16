@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NexusLite.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bca9cf40275d9f6dce27bba6bf950b635c1b70ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d8934e53a37640a02b5119b7ecccc8c7c05545e")]
 [assembly: System.Reflection.AssemblyProductAttribute("NexusLite.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NexusLite.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

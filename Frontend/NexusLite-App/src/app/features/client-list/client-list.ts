@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './client-list.css',
 })
 
-export class ClientList extends BaseComponent<Client> {
+export class ClientList extends BaseComponent<Client> implements OnInit {
   constructor(protected clientService: ClientService) {
     super(clientService);
   }

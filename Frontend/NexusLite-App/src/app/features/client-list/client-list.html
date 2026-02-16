@@ -11,7 +11,7 @@
     <nav class="sidebar-nav">
       <span class="nav-label" *ngIf="!sidebarCollapsed">Menu</span>
       <button *ngFor="let nav of navItems"
-              (click)="activeSection = nav.key"
+              (click)="changeSection(nav.key)"
               class="nav-btn"
               [class.nav-btn-active]="activeSection === nav.key"
               [class.nav-btn-collapsed]="sidebarCollapsed">
@@ -39,28 +39,69 @@
         <h2>{{ titles[activeSection] }}</h2>
         <p>Gerenciamento de {{ titles[activeSection] }} no SQLite</p>
       </div>
-      <button (click)="newRecord()" class="btn-primary">
-        Novo Registro
-      </button>
+      <button (click)="newRecord()" class="btn-primary">Novo Registro</button>
     </header>
 
     <div class="body">
       <div class="form-card" *ngIf="formVisible">
         <div class="form-header">
           <div class="form-accent"></div>
-          <h3>{{ selectedItem.id !== 0 ? 'Editar Registro' : 'Novo Registro' }}</h3>
+          <h3>{{ ($any(selectedItem).id || $any(selectedItem).Id) !== 0 ? 'Editar Registro' : 'Novo Registro' }}</h3>
         </div>
+
         <div class="form-row">
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text"
-                   [(ngModel)]="selectedItem.name"
-                   placeholder="Digite o nome..."
-                   class="form-input" />
+          <div class="form-group" *ngIf="activeSection === 'clients' || activeSection === 'employees'">
+            <label>Nome Completo</label>
+            <input type="text" [(ngModel)]="$any(selectedItem).Name" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
           </div>
+
+          <ng-container *ngIf="activeSection === 'clients'">
+            <div class="form-group">
+              <label>Telefone</label>
+              <input type="text" [(ngModel)]="$any(selectedItem).ContactNumber" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+            <div class="form-group">
+              <label>Endereço</label>
+              <input type="text" [(ngModel)]="$any(selectedItem).Address" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="activeSection === 'employees'">
+            <div class="form-group">
+              <label>Função</label>
+              <input type="text" [(ngModel)]="$any(selectedItem).Function" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+            <div class="form-group">
+              <label>Salário</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).Salary" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="activeSection === 'finance'">
+            <div class="form-group">
+              <label>Descrição</label>
+              <input type="text" [(ngModel)]="$any(selectedItem).Description" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+            <div class="form-group">
+              <label>Valor</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).Value" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="activeSection === 'budgets'">
+            <div class="form-group">
+              <label>Material</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).MaterialCost" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+            <div class="form-group">
+              <label>Serviço</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).ServiceCost" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            </div>
+          </ng-container>
+
           <div class="form-actions">
-            <button (click)="save(); formVisible = false" class="btn-save">Salvar</button>
-            <button (click)="formVisible = false" class="btn-cancel">Cancelar</button>
+            <button (click)="save()" class="btn-save">Salvar</button>
+            <button (click)="clearEntity()" class="btn-cancel">Cancelar</button>
           </div>
         </div>
       </div>
@@ -68,30 +109,24 @@
       <div class="table-card">
         <div class="table-accent"></div>
         <div class="table-wrapper">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th class="th-right">Ações</th>
-              </tr>
-            </thead>
+          <table class="table" *ngIf="activeSection === 'clients'">
+            <thead><tr><th style="color: #d4af37;">ID</th><th>NOME</th><th>CONTATO</th><th>ENDEREÇO</th><th class="th-right">AÇÕES</th></tr></thead>
             <tbody>
-              <tr *ngFor="let item of items; let i = index" [class.row-alt]="i % 2 !== 0">
-                <td class="cell-id">{{ pid(item.id) }}</td>
-                <td class="cell-name">{{ item.name }}</td>
+              <tr *ngFor="let item of items">
+                <td class="cell-id">{{ pid($any(item).id || $any(item).Id) }}</td>
+                <td>{{ $any(item).Name || $any(item).name }}</td>
+                <td>{{ $any(item).ContactNumber || $any(item).contactNumber }}</td>
+                <td>{{ $any(item).Address || $any(item).address }}</td>
                 <td class="cell-actions">
                   <div class="action-group">
-                    <button (click)="editItem(item); formVisible = true" class="btn-action btn-edit">Editar</button>
-                    <button (click)="delete(item.id)" class="btn-action btn-delete">Excluir</button>
+                    <button (click)="editItem(item)" class="btn-action btn-edit">Editar</button>
+                    <button (click)="$event.stopPropagation(); delete(item)" class="btn-action btn-delete">Excluir</button>
                   </div>
                 </td>
               </tr>
-              <tr *ngIf="items.length === 0" class="empty-row">
-                <td colspan="3">Nenhum registro encontrado.</td>
-              </tr>
             </tbody>
           </table>
+          <div *ngIf="items.length === 0" class="empty-state">Nenhum registro encontrado.</div>
         </div>
         <div class="table-footer">
           <span class="footer-count"><strong>{{ items.length }}</strong> registros listados</span>

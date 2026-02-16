@@ -15,5 +15,6 @@ import { EmployeeService } from '../../services/employee.service';
 export class EmployeeList extends BaseComponent<Employee> {
   constructor(protected employeeService: EmployeeService) {
     super(employeeService);
+    this.activeSection = 'employee'
   }
 }

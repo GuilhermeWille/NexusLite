@@ -9,6 +9,6 @@ import { Employee } from '../models/Employee.model'
 
 export class EmployeeService extends BaseService<Employee> {
   constructor(protected override http: HttpClient) {
-    super(http, 'http://localhost:5298/api/Client')
+    super(http, 'http://localhost:5298/api/Employee')
   }
 }

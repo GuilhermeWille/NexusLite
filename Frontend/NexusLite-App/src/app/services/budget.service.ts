@@ -9,6 +9,6 @@ import { Budget } from '../models/Budget.model'
 
 export class Budgetervice extends BaseService<Budget> {
   constructor(protected override http: HttpClient) {
-    super(http, 'http://localhost:5298/api/Client')
+    super(http, 'http://localhost:5298/api/Budgets')
   }
 }

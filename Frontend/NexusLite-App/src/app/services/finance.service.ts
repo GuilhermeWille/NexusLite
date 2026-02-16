@@ -9,7 +9,7 @@ import { Finance } from '../models/Finance.model'
 
 export class FinanceService extends BaseService<Finance> {
   constructor(protected override http: HttpClient) {
-    super(http, 'http://localhost:5298/api/Client')
+    super(http, 'http://localhost:5298/api/Finance')
   }
 }
 

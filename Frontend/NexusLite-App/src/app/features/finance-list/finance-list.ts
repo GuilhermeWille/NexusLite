@@ -15,5 +15,6 @@ import { FinanceService } from '../../services/finance.service';
 export class FinanceList extends BaseComponent<Finance> {
   constructor(protected financeService: FinanceService) {
     super(financeService);
+    this.activeSection = 'finance';
   }
 }
