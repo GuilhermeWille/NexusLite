@@ -2,6 +2,8 @@
 
 O **NexusLite** é um dashboard moderno desenvolvido para gerenciamento de Clientes, Funcionários, Finanças e Orçamentos. Focado em uma interface de alta performance e visual "Dark Mode" elegante.
 
+🔗 **Link do Projeto:** [https://guilhermewille.github.io/NexusLite/](https://guilhermewille.github.io/NexusLite/)
+
 ## 🚀 Tecnologias
 * **Frontend:** Angular 18 (Zoneless)
 * **Estilização:** Tailwind CSS & Custom CSS (Elite Theme)
@@ -15,7 +17,7 @@ O **NexusLite** é um dashboard moderno desenvolvido para gerenciamento de Clien
 - [x] Interface Responsiva e Sidebar Colapsável.
 
 ## 📸 Screenshots
-*(Aqui tu coloca as imagens que me mandou, fica sensacional!)*
+*(Dica: Adicione aqui as capturas de tela do dashboard local e da versão mobile para mostrar a responsividade!)*
 
 ## 🔧 Como rodar o projeto
 1. Clone o repositório.
