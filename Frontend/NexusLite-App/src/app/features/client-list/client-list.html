@@ -9,93 +9,80 @@
     </div>
 
     <nav class="sidebar-nav">
-      <span class="nav-label" *ngIf="!sidebarCollapsed">Menu</span>
       <button *ngFor="let nav of navItems"
               (click)="changeSection(nav.key)"
               class="nav-btn"
-              [class.nav-btn-active]="activeSection === nav.key"
-              [class.nav-btn-collapsed]="sidebarCollapsed">
-        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path [attr.d]="nav.icon" />
+              [class.nav-btn-active]="activeSection === nav.key">
+        <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2">
+          <path [attr.d]="nav.icon"></path>
         </svg>
         <span *ngIf="!sidebarCollapsed">{{ nav.label }}</span>
       </button>
     </nav>
-
-    <div class="sidebar-footer">
-      <button (click)="sidebarCollapsed = !sidebarCollapsed" class="collapse-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path *ngIf="sidebarCollapsed" d="m9 18 6-6-6-6" />
-          <path *ngIf="!sidebarCollapsed" d="m15 18-6-6 6-6" />
-        </svg>
-        <span *ngIf="!sidebarCollapsed">Recolher</span>
-      </button>
-    </div>
   </aside>
 
   <div class="main-content">
-    <header class="topbar">
+    <header class="topbar-header">
       <div class="topbar-title">
         <h2>{{ titles[activeSection] }}</h2>
-        <p>Gerenciamento de {{ titles[activeSection] }} no SQLite</p>
+        <p>Gerenciamento de dados</p>
       </div>
-      <button (click)="newRecord()" class="btn-primary">Novo Registro</button>
+      <button (click)="newRecord()" class="btn-primary">
+        Novo Registro
+      </button>
     </header>
 
-    <div class="body">
+    <div class="body-content">
       <div class="form-card" *ngIf="formVisible">
-        <div class="form-header">
-          <div class="form-accent"></div>
-          <h3>{{ ($any(selectedItem).id || $any(selectedItem).Id) !== 0 ? 'Editar Registro' : 'Novo Registro' }}</h3>
-        </div>
-
         <div class="form-row">
           <div class="form-group" *ngIf="activeSection === 'clients' || activeSection === 'employees'">
             <label>Nome Completo</label>
-            <input type="text" [(ngModel)]="$any(selectedItem).Name" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+            <input type="text" [(ngModel)]="$any(selectedItem).Name" class="form-input" />
+          </div>
+
+          <div class="form-group" *ngIf="activeSection === 'finance' || activeSection === 'budgets'">
+            <label>Descrição</label>
+            <input type="text" [(ngModel)]="$any(selectedItem).Description" class="form-input" />
           </div>
 
           <ng-container *ngIf="activeSection === 'clients'">
             <div class="form-group">
               <label>Telefone</label>
-              <input type="text" [(ngModel)]="$any(selectedItem).ContactNumber" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <input type="text" [(ngModel)]="$any(selectedItem).ContactNumber" class="form-input" />
             </div>
             <div class="form-group">
               <label>Endereço</label>
-              <input type="text" [(ngModel)]="$any(selectedItem).Address" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <input type="text" [(ngModel)]="$any(selectedItem).Address" class="form-input" />
             </div>
           </ng-container>
 
           <ng-container *ngIf="activeSection === 'employees'">
             <div class="form-group">
               <label>Função</label>
-              <input type="text" [(ngModel)]="$any(selectedItem).Function" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <input type="text" [(ngModel)]="$any(selectedItem).Function" class="form-input" />
             </div>
             <div class="form-group">
               <label>Salário</label>
-              <input type="number" [(ngModel)]="$any(selectedItem).Salary" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <input type="number" [(ngModel)]="$any(selectedItem).Salary" class="form-input" />
             </div>
           </ng-container>
 
           <ng-container *ngIf="activeSection === 'finance'">
             <div class="form-group">
-              <label>Descrição</label>
-              <input type="text" [(ngModel)]="$any(selectedItem).Description" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
-            </div>
-            <div class="form-group">
               <label>Valor</label>
-              <input type="number" [(ngModel)]="$any(selectedItem).Value" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <input type="number" [(ngModel)]="$any(selectedItem).Value" class="form-input" />
             </div>
           </ng-container>
 
           <ng-container *ngIf="activeSection === 'budgets'">
             <div class="form-group">
-              <label>Material</label>
-              <input type="number" [(ngModel)]="$any(selectedItem).MaterialCost" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <label>Custo Material</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).MaterialCost" class="form-input" />
             </div>
             <div class="form-group">
-              <label>Serviço</label>
-              <input type="number" [(ngModel)]="$any(selectedItem).ServiceCost" class="form-input" [class.input-editing]="($any(selectedItem).Id || $any(selectedItem).id) !== 0" />
+              <label>Custo Serviço</label>
+              <input type="number" [(ngModel)]="$any(selectedItem).ServiceCost" class="form-input" />
             </div>
           </ng-container>
 
@@ -107,29 +94,78 @@
       </div>
 
       <div class="table-card">
-        <div class="table-accent"></div>
         <div class="table-wrapper">
-          <table class="table" *ngIf="activeSection === 'clients'">
-            <thead><tr><th style="color: #d4af37;">ID</th><th>NOME</th><th>CONTATO</th><th>ENDEREÇO</th><th class="th-right">AÇÕES</th></tr></thead>
+          <table class="table">
+            <thead>
+              <tr *ngIf="activeSection === 'clients'">
+                <th>ID</th>
+                <th>NOME</th>
+                <th>CONTATO</th>
+                <th>ENDEREÇO</th>
+                <th class="th-right">AÇÕES</th>
+              </tr>
+              <tr *ngIf="activeSection === 'employees'">
+                <th>ID</th>
+                <th>NOME</th>
+                <th>FUNÇÃO</th>
+                <th>SALÁRIO</th>
+                <th class="th-right">AÇÕES</th>
+              </tr>
+              <tr *ngIf="activeSection === 'finance'">
+                <th>ID</th>
+                <th>DESCRIÇÃO</th>
+                <th>VALOR</th>
+                <th class="th-right">AÇÕES</th>
+              </tr>
+              <tr *ngIf="activeSection === 'budgets'">
+                <th>ID</th>
+                <th>DESCRIÇÃO</th>
+                <th>MATERIAIS</th>
+                <th>SERVIÇO</th>
+                <th class="th-right">AÇÕES</th>
+              </tr>
+            </thead>
+
             <tbody>
               <tr *ngFor="let item of items">
-                <td class="cell-id">{{ pid($any(item).id || $any(item).Id) }}</td>
-                <td>{{ $any(item).Name || $any(item).name }}</td>
-                <td>{{ $any(item).ContactNumber || $any(item).contactNumber }}</td>
-                <td>{{ $any(item).Address || $any(item).address }}</td>
+                <td data-label="ID" class="cell-id">{{ pid($any(item).id || $any(item).Id) }}</td>
+
+                <ng-container *ngIf="activeSection === 'clients'">
+                  <td data-label="Nome">{{ $any(item).Name }}</td>
+                  <td data-label="Contato">{{ $any(item).ContactNumber }}</td>
+                  <td data-label="Endereço">{{ $any(item).Address }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="activeSection === 'employees'">
+                  <td data-label="Nome">{{ $any(item).Name }}</td>
+                  <td data-label="Função">{{ $any(item).Function }}</td>
+                  <td data-label="Salário">R$ {{ $any(item).Salary }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="activeSection === 'finance'">
+                  <td data-label="Desc">{{ $any(item).Description }}</td>
+                  <td data-label="Valor">R$ {{ $any(item).Value }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="activeSection === 'budgets'">
+                  <td data-label="Desc">{{ $any(item).Description }}</td>
+                  <td data-label="Material">R$ {{ $any(item).MaterialCost }}</td>
+                  <td data-label="Serviço">R$ {{ $any(item).ServiceCost }}</td>
+                </ng-container>
+
                 <td class="cell-actions">
                   <div class="action-group">
                     <button (click)="editItem(item)" class="btn-action btn-edit">Editar</button>
-                    <button (click)="$event.stopPropagation(); delete(item)" class="btn-action btn-delete">Excluir</button>
+                    <button (click)="delete(item)" class="btn-action btn-delete">Excluir</button>
                   </div>
                 </td>
               </tr>
+
+              <tr *ngIf="items.length === 0">
+                <td colspan="5" class="empty-state">Nenhum registro encontrado.</td>
+              </tr>
             </tbody>
           </table>
-          <div *ngIf="items.length === 0" class="empty-state">Nenhum registro encontrado.</div>
-        </div>
-        <div class="table-footer">
-          <span class="footer-count"><strong>{{ items.length }}</strong> registros listados</span>
         </div>
       </div>
     </div>

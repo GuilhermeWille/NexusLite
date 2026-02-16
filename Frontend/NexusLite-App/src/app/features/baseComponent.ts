@@ -4,7 +4,6 @@ import { IEntity } from '../models/IEntity.model';
 
 @Directive()
 export abstract class BaseComponent<T extends IEntity> implements OnInit {
-
   protected cdr = inject(ChangeDetectorRef);
 
   public items: T[] = [];
@@ -62,7 +61,7 @@ export abstract class BaseComponent<T extends IEntity> implements OnInit {
           this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error('Erro na carga de dados:', err);
+          console.error('Erro:', err);
           this.cdr.detectChanges();
         }
       });
@@ -71,7 +70,7 @@ export abstract class BaseComponent<T extends IEntity> implements OnInit {
 
   delete(item: any) {
     const id = item.id || item.Id;
-    if (id && confirm('Deseja realmente excluir este registro?')) {
+    if (id && confirm('Excluir?')) {
       this.service.deleteEntity(id).subscribe({
         next: () => {
           this.items = this.items.filter(i => (i.id || (i as any).Id) !== id);

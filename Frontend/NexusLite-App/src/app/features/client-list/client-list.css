@@ -4,7 +4,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 @tailwind base;
@@ -44,23 +44,17 @@ html, body {
 
 .dashboard {
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  overflow: hidden;
 }
 
 .sidebar {
-  width: 240px;
-  min-width: 240px;
+  width: 100%;
   background: var(--bg-sidebar);
-  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
-}
-
-.sidebar-collapsed {
-  width: 68px;
-  min-width: 68px;
+  z-index: 50;
 }
 
 .sidebar-logo {
@@ -68,13 +62,12 @@ html, body {
   align-items: center;
   gap: 12px;
   padding: 0 20px;
-  height: 64px;
-  border-bottom: 1px solid var(--border-color);
+  height: 60px;
 }
 
 .logo-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   background: var(--gold);
   border-radius: var(--radius);
   display: flex;
@@ -85,81 +78,101 @@ html, body {
 }
 
 .sidebar-nav {
-  flex: 1;
-  padding: 16px 12px;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 12px;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
 
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 8px;
+  padding: 8px 12px;
   border-radius: var(--radius);
   color: var(--text-secondary);
-  transition: all 0.2s;
-  width: 100%;
   border: none;
   background: transparent;
   cursor: pointer;
+  white-space: nowrap;
+  font-size: 13px;
 }
-
-  .nav-btn:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
 
 .nav-btn-active {
   background: var(--purple) !important;
   color: #fff !important;
-  box-shadow: 0 4px 16px var(--purple-glow);
+  box-shadow: 0 4px 12px var(--purple-glow);
 }
 
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 0 20px;
   height: 64px;
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
 }
 
 .body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px 28px;
+  padding: 20px;
 }
+
+.btn-primary, .btn-save {
+  background: var(--gold);
+  color: #1a1000;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  min-width: 80px;
+  transition: transform 0.1s;
+}
+
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
 
 .form-card {
   background: var(--bg-card);
-  border: 2px solid var(--gold) !important;
+  border: 1px solid var(--gold-border) !important;
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 20px;
   margin-bottom: 24px;
-  box-shadow: 0 0 20px var(--gold-dim);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .form-input {
   width: 100%;
-  height: 42px;
+  height: 38px;
   background: var(--bg-input);
   border: 1px solid var(--border-color);
   color: #fff;
   border-radius: var(--radius);
-  padding: 0 16px;
+  padding: 0 12px;
+  outline: none;
 }
 
 .table-card {
   background: var(--bg-card);
-  border: 2px solid var(--gold) !important;
+  border: 1px solid var(--border-color) !important;
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 20px var(--gold-dim);
+  overflow: hidden;
 }
 
 .table {
@@ -167,84 +180,117 @@ html, body {
   border-collapse: collapse;
 }
 
-  .table th {
-    padding: 14px 16px;
-    font-size: 10px;
-    text-transform: uppercase;
-    color: var(--gold);
-    border-bottom: 1px solid var(--border-color);
-    text-align: left;
+  .table thead {
+    display: none;
   }
 
-    .table th:last-child {
-      text-align: center !important;
-    }
+  .table tr {
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px;
+  }
 
   .table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(30, 30, 42, 0.5);
-    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    border: none;
   }
+
+    .table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
 
 .cell-id {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #ffffff !important;
+  color: #fff !important;
   font-weight: 700;
-  opacity: 1 !important;
-}
-
-.cell-actions {
-  text-align: center !important;
-  vertical-align: middle !important;
 }
 
 .action-group {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 24px !important;
-  opacity: 1 !important;
-  width: 100%;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  padding-top: 8px;
 }
 
 .btn-action {
   width: 32px;
   height: 32px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
-  flex-shrink: 0;
+  border: none;
 }
 
 .btn-edit {
   background: var(--success-bg);
   color: var(--success);
-  border: 1px solid rgba(52, 211, 153, 0.2);
 }
-
-  .btn-edit:hover {
-    background: var(--success);
-    color: #000;
-  }
 
 .btn-delete {
   background: var(--danger-bg);
   color: var(--danger);
-  border: 1px solid rgba(248, 113, 113, 0.2);
 }
 
-  .btn-delete:hover {
-    background: var(--danger);
-    color: #fff;
+@media (min-width: 1024px) {
+  .dashboard {
+    flex-direction: row;
   }
 
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    height: 100vh;
+    border-right: 1px solid var(--border-color);
+    border-bottom: none;
+  }
+
+  .sidebar-nav {
+    flex-direction: column;
+    padding: 16px 12px;
+    overflow-x: visible;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .table thead {
+    display: table-header-group;
+  }
+
+  .table tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .table td {
+    display: table-cell;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+    .table td::before {
+      display: none;
+    }
+
+  .action-group {
+    justify-content: center;
+  }
+}
+
 .table-footer {
-  padding: 16px 24px;
-  border-top: 1px solid var(--gold-border);
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-color);
   font-size: 12px;
   color: var(--text-muted);
 }
