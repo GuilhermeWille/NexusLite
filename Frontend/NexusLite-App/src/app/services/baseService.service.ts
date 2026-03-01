@@ -7,7 +7,7 @@ export abstract class BaseService<T extends IEntity> {
 
   constructor(
     protected http: HttpClient,
-    public apiUrl: string = '' // 🚨 Adicionamos o segundo argumento opcional aqui
+    public apiUrl: string = ''
   ) { }
 
   listAll(endpoint: string): Observable<T[]> {
