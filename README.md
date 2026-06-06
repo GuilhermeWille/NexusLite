@@ -16,9 +16,6 @@ O **NexusLite** é um dashboard moderno desenvolvido para gerenciamento de Clien
 - [x] Gerenciador de Orçamentos com cálculo automático.
 - [x] Interface Responsiva e Sidebar Colapsável.
 
-## 📸 Screenshots
-*(Dica: Adicione aqui as capturas de tela do dashboard local e da versão mobile para mostrar a responsividade!)*
-
 ## 🔧 Como rodar o projeto
 1. Clone o repositório.
 2. No backend, rode o comando para iniciar a API (localhost:5298).
